@@ -33,6 +33,10 @@
 ```bash
 $ npm install
 ```
+''' mongoose pakages: 
+npm install --save mongoose @nestjs/mongoose
+&&
+npm install --save-dev @types/mongoose
 
 ## Running the app
 
