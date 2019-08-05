@@ -1,6 +1,8 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete } from "@nestjs/common";
+import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards } from "@nestjs/common";
 
 import { TasksService } from "./tasks.service";
+import { AuthGuard } from "@nestjs/passport";
+import { AdminGuard } from "src/guards/admin.guard";
 
 @Controller('task-actions')
 export class TasksControler {
@@ -27,6 +29,7 @@ export class TasksControler {
     }
 
     @Patch(':id')
+    @UseGuards(AuthGuard('jwt'), AdminGuard)
     async updateTask(
         @Param('id') taskId: string,
         @Body('taskName') taskName: string,
@@ -36,6 +39,7 @@ export class TasksControler {
         return 'Task '+ taskId + ' was updated';
     }
     @Delete(':id')
+    @UseGuards(AuthGuard('jwt'), AdminGuard)
     async deleteTask(@Param('id') taskId: string){
         await this.tasksService.deleteTask(taskId);
         return "task with id: " + taskId + " was remooved"
