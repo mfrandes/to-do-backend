@@ -2,9 +2,9 @@ import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards } from "@n
 
 import { TasksService } from "./tasks.service";
 import { AuthGuard } from "@nestjs/passport";
-import { AdminGuard } from "src/guards/admin.guard";
+//import { AdminGuard } from "src/guards/admin.guard";
 
-@Controller('task-actions')
+@Controller('tasks')
 export class TasksControler {
     constructor(private readonly tasksService: TasksService){}
     
@@ -29,7 +29,7 @@ export class TasksControler {
     }
 
     @Patch(':id')
-    @UseGuards(AuthGuard('jwt'), AdminGuard)
+    //@UseGuards(AuthGuard('jwt'), AdminGuard)
     async updateTask(
         @Param('id') taskId: string,
         @Body('taskName') taskName: string,
@@ -39,7 +39,7 @@ export class TasksControler {
         return 'Task '+ taskId + ' was updated';
     }
     @Delete(':id')
-    @UseGuards(AuthGuard('jwt'), AdminGuard)
+    //@UseGuards(AuthGuard('jwt'), AdminGuard)
     async deleteTask(@Param('id') taskId: string){
         await this.tasksService.deleteTask(taskId);
         return "task with id: " + taskId + " was remooved"

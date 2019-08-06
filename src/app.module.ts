@@ -4,11 +4,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TasksModule } from './tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @Module({
-  imports: [TasksModule, MongooseModule.forRoot('mongodb+srv://mirceanotadmin:qXIed5J0EXj0bcvF@myfirstcluster-hqjfp.mongodb.net/nest-todoapp?retryWrites=true&w=majority'), AuthModule, UsersModule],
+  imports: [
+    TasksModule, 
+    MongooseModule.forRoot(process.env.MONGO_URI), 
+    AuthModule,
+    SharedModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

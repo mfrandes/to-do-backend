@@ -20,6 +20,6 @@ import { UserService } from './user.service';
       useClass: LoggingInterceptor,
     },
   ],
-  exports: [UserService],
+  exports: [UserService, SharedModule],
 })
 export class SharedModule {}
