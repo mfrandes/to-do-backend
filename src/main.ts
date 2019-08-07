@@ -20,6 +20,7 @@ server.get('/_ah/start', (req, res) => res.send('ok'));
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  app.enableCors();
   app.setGlobalPrefix('api');
   await app.listen(process.env.PORT);
 }

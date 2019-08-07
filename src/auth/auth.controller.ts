@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import { Body, Controller, Post, Get, Options } from '@nestjs/common';
 
 import { UserService } from '../shared/user.service';
 import { Payload } from '../types/payload';
@@ -14,11 +14,14 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() userDTO: LoginDTO) {
+
+    
     const user = await this.userService.findByLogin(userDTO);
     const payload: Payload = {
       username: user.username,
       admin: user.admin,
     };
+
     const token = await this.authService.signPayload(payload);
     return { user, token };
   }
@@ -29,8 +32,10 @@ export class AuthController {
     const payload: Payload = {
       username: user.username,
       admin: user.admin,
+      expiresIn : "43200"
     };
     const token = await this.authService.signPayload(payload);
-    return { user, token };
+     
+    return { user, token, };
   }
 }

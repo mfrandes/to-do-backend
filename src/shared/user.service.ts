@@ -31,7 +31,7 @@ export class UserService {
     const { username, password } = userDTO;
     const user = await this.userModel
       .findOne({ username })
-      .select('username password seller created address');
+      .select('username password admin');
     if (!user) {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
