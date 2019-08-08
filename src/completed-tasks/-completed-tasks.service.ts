@@ -2,17 +2,17 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
-import { Task } from "../shared/task.model";
+import { CompletedTask } from "src/shared/completed-task.model";
 
 @Injectable()
 export class CompletedTasksService {
-    private tasks: Task[] = [];
+    private completedTasks: CompletedTask[] = [];
 
-    constructor(@InjectModel('Completed-Task') private readonly taskModel: Model<Task>) { }
+    constructor(@InjectModel('Completed-Task') private readonly taskModel: Model<CompletedTask>) { }
 
     async insertTask(taskName: string, taskDetails: string) {
-        const newTask: Task = new this.taskModel({taskName: taskName, taskDetails: taskDetails });
-        this.tasks.push(newTask);
+        const newTask: CompletedTask = new this.taskModel({taskName: taskName, taskDetails: taskDetails });
+        this.completedTasks.push(newTask);
         const result = await newTask.save();
         return result.id as string;
     }

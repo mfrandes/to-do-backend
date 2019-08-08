@@ -4,7 +4,7 @@ import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards } from "@n
 import { CompletedTasksService } from "./-completed-tasks.service";
 //import { AdminGuard } from "src/guards/admin.guard";
 
-@Controller('completed-tasks')
+@Controller('completedtasks')
 export class CompletedTasksControler {
     constructor(private readonly tasksService: CompletedTasksService){}
     
