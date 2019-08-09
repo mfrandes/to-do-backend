@@ -6,10 +6,12 @@ export const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     select: false,
+    required: true
   },
   admin: {
     type: Boolean,
     default: false,
+    required: true
   },
   created: { type: Date, default: Date.now },
 });
