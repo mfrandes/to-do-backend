@@ -10,8 +10,8 @@ export class TasksService {
 
     constructor(@InjectModel('Task') private readonly taskModel: Model<Task>) { }
 
-    async insertTask(taskName: string, taskDetails: string) {
-        const newTask: Task = new this.taskModel({taskName: taskName, taskDetails: taskDetails });
+    async insertTask(taskName: string, taskDetails: string, isCompleted: boolean) {
+        const newTask: Task = new this.taskModel({taskName: taskName, taskDetails: taskDetails, isCompleted });
         this.tasks.push(newTask);
         const result = await newTask.save();
         return result.id as string;
@@ -24,7 +24,8 @@ export class TasksService {
                 return ({
                     id: task.id, 
                     taskName: task.taskName,
-                    taskDetails: task.taskDetails
+                    taskDetails: task.taskDetails,
+                    isCompleted: task.isCompleted
                 })
             }
         )
@@ -34,11 +35,12 @@ export class TasksService {
         return {
             id: task.id,
             taskName: task.taskName,
-            taskDetails: task.taskDetails
+            taskDetails: task.taskDetails,
+            isCompleted: task.isCompleted
         }
     }
 
-    async updateTask(taskId: string, taskName: string, taskDetails: string){
+    async updateTask(taskId: string, taskName: string, taskDetails: string, isCompleted:  boolean){
         const updatedTask = await this.findTask(taskId);
         if(taskName){
             updatedTask.taskName = taskName;
@@ -46,6 +48,7 @@ export class TasksService {
         if(taskDetails){
             updatedTask.taskDetails = taskDetails;
         }
+        updatedTask.isCompleted = isCompleted;
         updatedTask.save();
         console.log('Task '+ taskId + ' was updated');
     }

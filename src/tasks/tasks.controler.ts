@@ -11,9 +11,10 @@ export class TasksControler {
     @Post()
     async addTask(
         @Body('taskName') taskName: string,
-        @Body('taskDetails') taskDetail: string
+        @Body('taskDetails') taskDetail: string,
+        @Body('isCompleted') isCompleted: boolean
     ){
-        const generatedId = await this.tasksService.insertTask(taskName, taskDetail);
+        const generatedId = await this.tasksService.insertTask(taskName, taskDetail, isCompleted);
         return {id: generatedId};
     }
 
@@ -33,9 +34,10 @@ export class TasksControler {
     async updateTask(
         @Param('id') taskId: string,
         @Body('taskName') taskName: string,
-        @Body('taskDetails') taskDetails: string
+        @Body('taskDetails') taskDetails: string,
+        @Body('isCompleted') isCompleted: boolean,
     ){
-        await this.tasksService.updateTask(taskId, taskName, taskDetails);
+        await this.tasksService.updateTask(taskId, taskName, taskDetails, isCompleted);
         return 'Task '+ taskId + ' was updated';
     }
     @Delete(':id')
