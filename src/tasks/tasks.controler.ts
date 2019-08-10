@@ -38,12 +38,10 @@ export class TasksControler {
         @Body('isCompleted') isCompleted: boolean,
     ){
         await this.tasksService.updateTask(taskId, taskName, taskDetails, isCompleted);
-        return 'Task '+ taskId + ' was updated';
     }
     @Delete(':id')
     //@UseGuards(AuthGuard('jwt'), AdminGuard)
     async deleteTask(@Param('id') taskId: string){
         await this.tasksService.deleteTask(taskId);
-        return "task with id: " + taskId + " was remooved"
     }
 }
